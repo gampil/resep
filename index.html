@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kategori Resep</title>
+  <style>
+    body { font-family: Poppins, sans-serif; margin:20px; background:#f5f5f5; }
+    h1 { text-align:center; margin-bottom:20px; }
+    .grid {
+      display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+      gap:15px;
+    }
+    .card {
+      background:#fff; border-radius:12px; padding:10px; text-align:center;
+      box-shadow:0 2px 8px rgba(0,0,0,0.1); cursor:pointer;
+    }
+    .card img { width:100%; height:100px; object-fit:cover; border-radius:8px; margin-bottom:8px; }
+    .card h3 { font-size:14px; margin:0; color:#333; }
+  </style>
+</head>
+<body>
+  <h1>📖 Kategori Resep</h1>
+  <div id="categories" class="grid"></div>
+
+  <script>
+    async function loadCategories(){
+      const res = await fetch("GDPR.json");
+      const data = await res.json();
+      const categoriesDiv = document.getElementById("categories");
+
+      const basePath = "file:///C:/Users/ACER/Documents/Data%20Resep/";
+
+      data.NEWSCATEGORY.forEach(cat=>{
+        const div=document.createElement("div");
+        div.className="card";
+        div.innerHTML=`
+          <img src="${cat.category_image.replace(basePath,"")}" alt="${cat.category_name}">
+          <h3>${cat.category_name}</h3>
+        `;
+        div.onclick=()=>{ window.location.href=`list.html?cid=${cat.cid}`; };
+        categoriesDiv.appendChild(div);
+      });
+    }
+    loadCategories();
+  </script>
+</body>
+</html>
