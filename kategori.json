@@ -1,0 +1,207 @@
+[
+    {
+      "cid": 1,
+      "category_name": "Ayam",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 2,
+      "category_name": "Bebek",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 3,
+      "category_name": "Buah",
+      "category_image": "https://gampil.github.io/resep/categories/vegetarian.png"
+    },
+    {
+      "cid": 4,
+      "category_name": "Cumi",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 5,
+      "category_name": "Daging",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 6,
+      "category_name": "Ikan",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 7,
+      "category_name": "Jamur",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 8,
+      "category_name": "Kue Basah",
+      "category_image": "https://gampil.github.io/resep/categories/desserts.png"
+    },
+    {
+      "cid": 9,
+      "category_name": "Kue Kering",
+      "category_image": "https://gampil.github.io/resep/categories/desserts.png"
+    },
+    {
+      "cid": 10,
+      "category_name": "Mie",
+      "category_image": "https://gampil.github.io/resep/categories/soups.png"
+    },
+    {
+      "cid": 11,
+      "category_name": "Minuman Dingin",
+      "category_image": "https://gampil.github.io/resep/categories/beverages.png"
+    },
+    {
+      "cid": 12,
+      "category_name": "Minuman Panas",
+      "category_image": "https://gampil.github.io/resep/categories/beverages.png"
+    },
+    {
+      "cid": 13,
+      "category_name": "Nasi Goreng",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 14,
+      "category_name": "Pancake",
+      "category_image": "https://gampil.github.io/resep/categories/appetizers.png"
+    },
+    {
+      "cid": 15,
+      "category_name": "Puding",
+      "category_image": "https://gampil.github.io/resep/categories/appetizers.png"
+    },
+    {
+      "cid": 16,
+      "category_name": "Sambal",
+      "category_image": "https://gampil.github.io/resep/categories/other.png"
+    },
+    {
+      "cid": 17,
+      "category_name": "Sayur",
+      "category_image": "https://gampil.github.io/resep/categories/vegetarian.png"
+    },
+    {
+      "cid": 18,
+      "category_name": "Kambing",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 19,
+      "category_name": "Soto",
+      "category_image": "https://gampil.github.io/resep/categories/soups.png"
+    },
+    {
+      "cid": 20,
+      "category_name": "Sup",
+      "category_image": "https://gampil.github.io/resep/categories/soups.png"
+    },
+    {
+      "cid": 21,
+      "category_name": "Tahu",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 22,
+      "category_name": "Tempe",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 23,
+      "category_name": "Telur",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 24,
+      "category_name": "Udang",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 25,
+      "category_name": "Resep Idul Adha",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 26,
+      "category_name": "Ayam (New)",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 27,
+      "category_name": "Bebek (New)",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 28,
+      "category_name": "Buah (New)",
+      "category_image": "https://gampil.github.io/resep/categories/vegetarian.png"
+    },
+    {
+      "cid": 29,
+      "category_name": "Cake-Roti (New)",
+      "category_image": "https://gampil.github.io/resep/categories/desserts.png"
+    },
+    {
+      "cid": 30,
+      "category_name": "Daging (New)",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 31,
+      "category_name": "Ikan (New)",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 32,
+      "category_name": "Mie (New)",
+      "category_image": "https://gampil.github.io/resep/categories/soups.png"
+    },
+    {
+      "cid": 33,
+      "category_name": "Minuman (New)",
+      "category_image": "https://gampil.github.io/resep/categories/beverages.png"
+    },
+    {
+      "cid": 34,
+      "category_name": "Nasi (New)",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 35,
+      "category_name": "Sambal (New)",
+      "category_image": "https://gampil.github.io/resep/categories/other.png"
+    },
+    {
+      "cid": 36,
+      "category_name": "Sayur (New)",
+      "category_image": "https://gampil.github.io/resep/categories/vegetarian.png"
+    },
+    {
+      "cid": 37,
+      "category_name": "Seafood (New)",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 38,
+      "category_name": "Spesial Ramadhan (New)",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 39,
+      "category_name": "Tahu (New)",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 40,
+      "category_name": "Telur (New)",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 41,
+      "category_name": "Tempe (New)",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    }
+  ]
