@@ -1,0 +1,27 @@
+[
+    {
+      "cid": 1,
+      "category_name": "Ayam",
+      "category_image": "https://gampil.github.io/resep/categories/all.png"
+    },
+    {
+      "cid": 2,
+      "category_name": "Bebek",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 3,
+      "category_name": "Buah",
+      "category_image": "https://gampil.github.io/resep/categories/vegetarian.png"
+    },
+    {
+      "cid": 4,
+      "category_name": "Cumi",
+      "category_image": "https://gampil.github.io/resep/categories/main.png"
+    },
+    {
+      "cid": 5,
+      "category_name": "More",
+      "category_image": "https://gampil.github.io/resep/categories/more.png"
+    }
+]
