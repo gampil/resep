@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daftar Belanja</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>🛒 Daftar Belanja</header>
+  <div class="container" id="shopContainer"></div>
+
+  <script>
+    async function loadShopList() {
+      const res = await fetch("https://gampil.github.io/resep/resepterbaru/recipes.json");
+      const data = await res.json();
+      const shops = data.tb_shop_list;
+
+      const container = document.getElementById("shopContainer");
+      container.innerHTML = "";
+
+      shops.forEach(shop => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="card-content">
+            <h3>${shop.shop_item}</h3>
+            <p>${shop.shop_qty} ${shop.shop_unit}</p>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    loadShopList();
+  </script>
+</body>
+</html>

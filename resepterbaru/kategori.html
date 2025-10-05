@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kategori Resep</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>🍴 Kategori Resep</header>
+  <div class="container" id="categoryContainer"></div>
+
+  <script>
+    async function loadCategories() {
+      const res = await fetch("https://gampil.github.io/resep/resepterbaru/recipes.json");
+      const data = await res.json();
+      const categories = data.tb_category;
+
+      const container = document.getElementById("categoryContainer");
+      container.innerHTML = "";
+
+      categories.forEach(cat => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${cat.category_image}" alt="${cat.category_name}">
+          <div class="card-content">
+            <h3>${cat.category_name}</h3>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    loadCategories();
+  </script>
+</body>
+</html>

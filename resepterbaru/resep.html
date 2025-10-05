@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Resep</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>📖 Detail Resep</header>
+  <div class="container" id="detailContainer"></div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const recipeId = urlParams.get("id");
+
+    async function loadDetail() {
+      const res = await fetch("https://gampil.github.io/resep/resepterbaru/recipes.json");
+      const data = await res.json();
+      const recipe = data.tb_recipe.find(r => r.recipe_id === recipeId);
+
+      const container = document.getElementById("detailContainer");
+      container.innerHTML = `
+        <div class="card" style="max-width:600px;margin:auto;">
+          <img src="${recipe.recipe_image}" alt="${recipe.recipe_name}">
+          <div class="card-content">
+            <h3>${recipe.recipe_name}</h3>
+            <h4>Bahan:</h4>
+            <p>${recipe.recipe_ingredient.replace(/\n/g, "<br>")}</p>
+            <h4>Langkah:</h4>
+            <p>${recipe.recipe_instruction.replace(/\n/g, "<br>")}</p>
+            <button class="btn" onclick="history.back()">Kembali</button>
+          </div>
+        </div>
+      `;
+    }
+
+    loadDetail();
+  </script>
+</body>
+</html>
