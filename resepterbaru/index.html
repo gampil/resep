@@ -6,7 +6,6 @@
   <title>Resep Terbaru</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* ============ NAVBAR ============ */
     nav {
       background: linear-gradient(135deg, #ff7f50, #ff4b2b);
       display: flex;
@@ -20,80 +19,28 @@
       top: 0;
       z-index: 10;
     }
-
-    nav .logo {
-      font-size: 1.4rem;
-      font-weight: 600;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-      margin: 0;
-      padding: 0;
-    }
-
-    nav ul li a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      transition: 0.3s;
-    }
-
-    nav ul li a:hover {
-      color: #ffeaa7;
-    }
-
-    /* RESPONSIVE NAV */
-    @media (max-width: 600px) {
-      nav ul {
-        flex-direction: column;
-        background: rgba(0,0,0,0.9);
-        position: fixed;
-        top: 60px;
-        right: -100%;
-        width: 200px;
-        padding: 20px;
-        border-radius: 10px 0 0 10px;
-        transition: right 0.3s ease;
-      }
-      nav ul.show {
-        right: 0;
-      }
-      nav .menu-toggle {
-        display: block;
-        cursor: pointer;
-        font-size: 1.4rem;
-      }
-    }
-
-    @media (min-width: 601px) {
-      nav .menu-toggle {
-        display: none;
-      }
-    }
+    nav .logo { font-size: 1.4rem; font-weight: 600; }
+    nav ul { list-style: none; display: flex; gap: 20px; margin: 0; padding: 0; }
+    nav ul li a { color: white; text-decoration: none; font-weight: 500; }
+    nav ul li a:hover { color: #ffeaa7; }
   </style>
 </head>
 <body>
   <nav>
     <div class="logo">🍳 Resep Nusantara</div>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-    <ul id="menu">
+    <ul>
       <li><a href="index.html">🏠 Beranda</a></li>
       <li><a href="kategori.html">🍴 Kategori</a></li>
-      <li><a href="shop.html">🛒 Daftar Belanja</a></li>
-      <li><a href="tentang.html">ℹ️ Tentang</a></li>
+      <li><a href="shop.html">🛒 Belanja</a></li>
     </ul>
   </nav>
 
-  <header>✨ Resep Terbaru</header>
+  <header id="pageTitle">✨ Resep Terbaru</header>
   <div class="container" id="recipeContainer"></div>
 
   <script>
-    function toggleMenu() {
-      document.getElementById("menu").classList.toggle("show");
-    }
+    const params = new URLSearchParams(window.location.search);
+    const selectedCategory = params.get("category");
 
     async function loadRecipes() {
       const res = await fetch("https://gampil.github.io/resep/resepterbaru/recipes.json");
@@ -101,9 +48,21 @@
       const recipes = data.tb_recipe;
 
       const container = document.getElementById("recipeContainer");
+      const pageTitle = document.getElementById("pageTitle");
       container.innerHTML = "";
 
-      recipes.slice(0, 12).forEach(item => { // tampilkan 12 resep saja di beranda
+      let filtered = recipes;
+      if (selectedCategory) {
+        filtered = recipes.filter(r => r.recipe_category === selectedCategory);
+        pageTitle.textContent = `🍽️ Resep Kategori: ${selectedCategory}`;
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<p>Tidak ada resep untuk kategori <b>${selectedCategory}</b>.</p>`;
+        return;
+      }
+
+      filtered.forEach(item => {
         const card = document.createElement("div");
         card.className = "card";
         card.innerHTML = `
