@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>ResepKu - Home</title>
+<style>
+  :root {
+    --green:#7FCF9B;
+    --text-dark:#0b3f2a;
+    --text-muted:#6b7f77;
+    --bg:#F6FBF7;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);font-family:Poppins,sans-serif;max-width:480px;margin:auto;}
+  header{background:var(--green);padding:16px;color:white;text-align:center;font-weight:600;font-size:18px;border-bottom-left-radius:16px;border-bottom-right-radius:16px;}
+  .search-box{display:flex;margin:14px 16px;background:white;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.05);overflow:hidden;}
+  .search-box input{flex:1;border:none;padding:10px 12px;font-size:15px;outline:none;}
+  .search-box button{background:var(--green);color:white;border:none;padding:10px 14px;font-size:16px;}
+  .categories{display:flex;overflow-x:auto;gap:12px;padding:8px 16px;margin-top:10px;}
+  .category{flex:0 0 auto;text-align:center;background:white;padding:8px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.06);}
+  .category img{width:60px;height:60px;object-fit:cover;border-radius:50%;}
+  .category span{font-size:12px;color:var(--text-dark);}
+  .recipes{padding:0 16px 80px;}
+  .recipe-card{background:white;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.06);overflow:hidden;margin-bottom:16px;}
+  .recipe-card img{width:100%;height:180px;object-fit:cover;}
+  .recipe-info{padding:10px 12px;}
+  .recipe-info h3{margin:0;font-size:16px;}
+  .recipe-info p{margin:4px 0 0;color:var(--text-muted);font-size:13px;}
+  nav{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);background:white;border-radius:30px;display:flex;justify-content:space-around;width:90%;max-width:400px;box-shadow:0 4px 20px rgba(0,0,0,0.1);padding:10px 0;}
+  nav a{text-decoration:none;color:var(--text-muted);text-align:center;font-size:12px;}
+  nav a.active{color:var(--green);font-weight:600;}
+  nav svg{width:22px;height:22px;fill:currentColor;}
+</style>
+</head>
+<body>
+  <header>🍳 ResepKu</header>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Cari resep...">
+    <button id="searchBtn">🔍</button>
+  </div>
+  <div class="categories" id="categoryList"></div>
+  <div class="recipes" id="recipeList"></div>
+  <nav>
+    <a href="index.html" class="active"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home</a>
+    <a href="search.html"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5A6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 5L20.49 19l-4.99-5z"/></svg>Cari</a>
+    <a href="favorites.html"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5C2 6 3.99 4 6.5 4c1.74 0 3.41 1 4.13 2.44h1.74C13.09 5 14.76 4 16.5 4C19.01 4 21 6 21 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>Favorit</a>
+  </nav>
+<script>
+const API_URL="https://gampil.github.io/resep/resepterbaru/recipes.json";
+let tb_category=[],tb_recipe=[],tb_recipe_category=[];
+async function fetchData(){const r=await fetch(API_URL);const d=await r.json();tb_category=d.tb_category;tb_recipe=d.tb_recipe;tb_recipe_category=d.tb_recipe_category;renderCategories();renderRecipes(tb_recipe);}
+function renderCategories(){const c=document.getElementById('categoryList');c.innerHTML='';tb_category.forEach(cat=>{const div=document.createElement('div');div.className='category';div.innerHTML=`<img src="${cat.category_image}" alt="${cat.category_name}"><span>${cat.category_name}</span>`;div.onclick=()=>filterByCategory(cat.category_id);c.appendChild(div);});}
+function renderRecipes(list){const r=document.getElementById('recipeList');r.innerHTML='';list.forEach(x=>{const div=document.createElement('div');div.className='recipe-card';div.innerHTML=`<img src="${x.recipe_image}"><div class='recipe-info'><h3>${x.recipe_name}</h3><p>${x.recipe_favorite==1?'⭐ Favorit':''}</p></div>`;div.onclick=()=>location.href='detail.html?id='+x.recipe_id;r.appendChild(div);});}
+function filterByCategory(id){const ids=tb_recipe_category.filter(rc=>rc.category_id==id).map(r=>r.recipe_id);renderRecipes(tb_recipe.filter(r=>ids.includes(r.recipe_id)));}
+document.getElementById('searchBtn').onclick=()=>{const q=document.getElementById('searchInput').value.trim();location.href='search.html?q='+encodeURIComponent(q);};
+fetchData();
+</script>
+</body></html>

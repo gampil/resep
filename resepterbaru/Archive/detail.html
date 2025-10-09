@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Resep - Detail</title>
+<style>
+  :root{--bg:#F6FBF7;--accent:#7FCF9B;--muted:#6b7f77}
+  body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:#123;line-height:1.45}
+  .top{display:flex;align-items:center;gap:12px;padding:16px;background:linear-gradient(90deg,var(--accent),#B8E6C8)}
+  .top a{color:#073; text-decoration:none;font-weight:700}
+  .wrap{max-width:960px;margin:16px auto;padding:16px}
+  .card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 12px 30px rgba(8,40,30,0.06)}
+  .hero{width:100%;height:300px;object-fit:cover;background:#eee}
+  .content{padding:18px}
+  .title{font-size:20px;margin:0 0 6px}
+  .meta{color:var(--muted);font-size:13px;margin-bottom:12px}
+  .actions{display:flex;gap:8px;margin-bottom:12px}
+  .btn{padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
+  .btn.primary{background:var(--accent);color:#063}
+  .btn.ghost{background:#f4f7f5;color:#123}
+  pre{white-space:pre-wrap;background:#f9f9f9;padding:12px;border-radius:8px;border:1px solid #f0f4f0;color:#233}
+  /* responsive */
+  @media(max-width:600px){ .hero{height:220px} .title{font-size:18px} }
+</style>
+</head>
+<body>
+  <div class="top">
+    <a href="index.html">⬅️ Kembali</a>
+    <div style="font-weight:800">Detail Resep</div>
+  </div>
+
+  <main class="wrap">
+    <article class="card">
+      <img id="hero" class="hero" src="" alt="Gambar resep" onerror="this.onerror=null;this.src='https://via.placeholder.com/800x400?text=No+Image'">
+      <div class="content">
+        <h1 id="title" class="title"></h1>
+        <div id="meta" class="meta"></div>
+
+        <div class="actions">
+          <button id="favBtn" class="btn primary">⭐ Simpan Favorit</button>
+          <button id="shareBtn" class="btn ghost">📤 Bagikan</button>
+        </div>
+
+        <h4>Bahan</h4>
+        <pre id="ingredients">-</pre>
+
+        <h4>Cara Membuat</h4>
+        <pre id="steps">-</pre>
+      </div>
+    </article>
+  </main>
+
+<script>
+const DATA_URL = "https://gampil.github.io/resep/resepterbaru/recipes.json";
+
+function qs(name){ return new URLSearchParams(location.search).get(name); }
+const rid = qs('id');
+
+let tb_recipe = [];
+
+async function load(){
+  try{
+    const res = await fetch(DATA_URL);
+    const data = await res.json();
+    tb_recipe = data.tb_recipe || [];
+    show();
+  }catch(e){
+    console.error(e);
+    document.getElementById('title').textContent = 'Gagal memuat data';
+  }
+}
+
+function show(){
+  const r = tb_recipe.find(x=> x.recipe_id == rid);
+  if(!r){ document.getElementById('title').textContent = 'Resep tidak ditemukan'; return; }
+  document.getElementById('hero').src = r.recipe_image || '';
+  document.getElementById('title').textContent = r.recipe_name || '';
+  document.getElementById('meta').textContent = `ID: ${r.recipe_id} • ${r.recipe_favorite==1? 'Favorit':''}`;
+  document.getElementById('ingredients').textContent = r.recipe_ingredient || '-';
+  document.getElementById('steps').textContent = r.recipe_instruction || '-';
+
+  // favorit handling (localStorage)
+  const favs = JSON.parse(localStorage.getItem('fav_recipes')||'[]');
+  const isFav = favs.includes(r.recipe_id);
+  const favBtn = document.getElementById('favBtn');
+  favBtn.textContent = isFav? '★ Hapus Favorit':'☆ Simpan Favorit';
+  favBtn.onclick = ()=>{
+    let arr = JSON.parse(localStorage.getItem('fav_recipes')||'[]');
+    if(arr.includes(r.recipe_id)) arr = arr.filter(id=> id!= r.recipe_id);
+    else arr.push(r.recipe_id);
+    localStorage.setItem('fav_recipes', JSON.stringify(arr));
+    favBtn.textContent = arr.includes(r.recipe_id)? '★ Hapus Favorit':'☆ Simpan Favorit';
+  };
+
+  // share
+  document.getElementById('shareBtn').onclick = async ()=>{
+    const url = location.href;
+    const text = `${r.recipe_name}\n\nBahan:\n${r.recipe_ingredient}\n\nCara:\n${r.recipe_instruction}`;
+    if(navigator.share){ try{ await navigator.share({title:r.recipe_name,text, url}); }catch(e){} }
+    else { navigator.clipboard.writeText(url); alert('Link disalin ke clipboard'); }
+  };
+}
+
+load();
+</script>
+</body>
+</html>
