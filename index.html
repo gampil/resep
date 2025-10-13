@@ -1,47 +1,99 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Kategori Resep</title>
-  <style>
-    body { font-family: Poppins, sans-serif; margin:20px; background:#f5f5f5; }
-    h1 { text-align:center; margin-bottom:20px; }
-    .grid {
-      display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
-      gap:15px;
-    }
-    .card {
-      background:#fff; border-radius:12px; padding:10px; text-align:center;
-      box-shadow:0 2px 8px rgba(0,0,0,0.1); cursor:pointer;
-    }
-    .card img { width:100%; height:100px; object-fit:cover; border-radius:8px; margin-bottom:8px; }
-    .card h3 { font-size:14px; margin:0; color:#333; }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Resep - Final</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="Aplikasi Resep - Final (kategori + data.json).">
 </head>
 <body>
-  <h1>📖 Kategori Resep</h1>
-  <div id="categories" class="grid"></div>
+  <div id="app">
+    <header class="app-bar">
+      <div class="left">🍳</div>
+      <div class="title">Resep</div>
+      <div class="right" id="profileBtn">☰</div>
+    </header>
 
-  <script>
-    async function loadCategories(){
-      const res = await fetch("GDPR.json");
-      const data = await res.json();
-      const categoriesDiv = document.getElementById("categories");
+    <main id="page">
+      <div id="loader" class="loader">
+        <div class="spinner" aria-hidden="true"></div>
+        <div class="loader-text">Memuat data resep…</div>
+      </div>
+    </main>
 
-      const basePath = "file:///C:/Users/ACER/Documents/Data%20Resep/";
+    <nav class="bottom-nav" role="navigation" aria-label="Bottom Navigation">
+      <button data-route="#/" class="nav-btn" id="nav-home">Kategori</button>
+      <button data-route="#/search" class="nav-btn" id="nav-search">Cari</button>
+      <button data-route="#/favorites" class="nav-btn" id="nav-fav">Favorit</button>
+    </nav>
+  </div>
 
-      data.NEWSCATEGORY.forEach(cat=>{
-        const div=document.createElement("div");
-        div.className="card";
-        div.innerHTML=`
-          <img src="${cat.category_image.replace(basePath,"")}" alt="${cat.category_name}">
-          <h3>${cat.category_name}</h3>
-        `;
-        div.onclick=()=>{ window.location.href=`list.html?cid=${cat.cid}`; };
-        categoriesDiv.appendChild(div);
-      });
-    }
-    loadCategories();
-  </script>
+  <!-- Templates -->
+  <template id="categories-template">
+    <section class="container">
+      <div class="section-title">Kategori Resep</div>
+      <div id="categoriesList" class="grid"></div>
+    </section>
+  </template>
+
+  <template id="category-recipes-template">
+    <section class="container">
+      <button id="backToCats" class="ghost">← Kembali ke Kategori</button>
+      <div class="section-title" id="catTitle">Kategori</div>
+      <div id="recipeListByCat" class="list"></div>
+    </section>
+  </template>
+
+  <template id="home-template">
+    <section class="container">
+      <div class="search-row">
+        <input id="searchInputHome" placeholder="Cari resep atau bahan..." aria-label="Cari resep"/>
+      </div>
+      <div class="section-title">Resep Terbaru</div>
+      <div id="recipeList" class="list"></div>
+    </section>
+  </template>
+
+  <template id="search-template">
+    <section class="container">
+      <div class="search-row">
+        <input id="searchInput" placeholder="Ketik nama resep atau bahan..." aria-label="Cari"/>
+      </div>
+      <div id="searchResults" class="list"></div>
+    </section>
+  </template>
+
+  <template id="favorites-template">
+    <section class="container">
+      <div class="section-title">Favoritmu</div>
+      <div id="favoritesList" class="list"></div>
+    </section>
+  </template>
+
+  <template id="detail-template">
+    <section class="container detail">
+      <button id="backBtn" class="ghost">← Kembali</button>
+      <div id="hero" class="hero"></div>
+      <h1 id="detailTitle"></h1>
+      <div class="meta-row">
+        <span id="detailCategory" class="chip"></span>
+        <span id="detailTime"></span>
+        <span id="detailServings"></span>
+      </div>
+      <p id="detailDesc"></p>
+      <div class="section-title">Bahan</div>
+      <ul id="ingredientsList" class="ingredients"></ul>
+      <div class="section-title">Langkah</div>
+      <ol id="instructionsList" class="instructions"></ol>
+      <div class="detail-actions">
+        <button id="favBtn">♡ Tambah Favorit</button>
+        <button id="shareBtn" class="ghost">Share</button>
+      </div>
+    </section>
+  </template>
+
+  <script src="app_final.js" defer></script>
 </body>
 </html>
